@@ -17,13 +17,11 @@ let socket;
 
 const Chat= ({location})=>{
 
-    const [name, setName]=useState('');
-    const [room, setRoom]=useState('');
+    const [name, setName] = useState('');
+    const [room, setRoom] = useState('');
     const [users, setUsers] = useState('');
-
-
-    const [message,setMessage]=useState('');
-    const [messages,setMessages]=useState([]);
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
     const ENDPOINT="https://chetto.herokuapp.com/";
 
     useEffect(()=>{
@@ -37,14 +35,11 @@ const Chat= ({location})=>{
         console.log(socket);
 
         socket.emit('join',{name,room},()=>{
+            if(error) {
+                alert(error);
+            }
 
         });
-
-        return() =>{
-            socket.emit('disconnect');
-            socket.disconnect();
-        }
-
     },[ENDPOINT,location.search]);
     
     
