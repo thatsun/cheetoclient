@@ -42,19 +42,12 @@ const Chat= ({location})=>{
 
         return() =>{
             socket.emit('disconnect');
-            socket.off();
+            socket.disconnect();
         }
 
     },[ENDPOINT,location.search]);
     
-    useEffect( ()=>{
-        socket.on('message',(message)=>{
-            setMessages([...messages,message]);
-
-
-        })
-
-    },[messages]);
+    
     useEffect(() => {
         socket.on('message', message => {
           setMessages(messages => [ ...messages, message ]);
@@ -63,7 +56,7 @@ const Chat= ({location})=>{
         socket.on("roomData", ({ users }) => {
           setUsers(users);
         });
-    }, []);
+    },[]);
 
     //function for sending messages
     const sendMessage=(event)=>{
